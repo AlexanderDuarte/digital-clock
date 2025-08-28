@@ -1,0 +1,109 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    height: 100dvh;
+    background-color: rgb(46, 46, 46);
+}
+
+#clock {
+    margin: auto;
+    background-color: rgb(17, 17, 17);
+    width: 70%;
+    height: 200px;
+    display: flex;
+    padding: 16px;
+    border-radius: 16px;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+.digit{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.segment {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 255, 115);
+    opacity: 0.1;
+    transition: all 0.3s ease;
+}
+
+.active {
+    opacity: 1;
+}
+
+.inactive {
+    opacity: 0.1;
+}
+
+.seg-1 {
+    clip-path: polygon(3% 0%, 97% 0%, 77% 10%, 23% 10%);
+}
+
+.seg-2 {
+    clip-path: polygon(0% 0%, 20% 10%, 20% 40%, 0% 50%);
+}
+
+.seg-3 {
+    clip-path: polygon(80% 10%, 100% 0%, 100% 50%, 80% 40%);
+}
+
+.seg-4 {
+    clip-path: polygon(23% 40%, 77% 40%, 97% 50%, 3% 50%);
+}
+
+.seg-5 {
+    clip-path: polygon(0% 51%, 20% 51%, 20% 90%, 0% 100%);
+}
+
+.seg-6 {
+    clip-path: polygon(80% 51%, 100% 51%, 100% 100%, 80% 90%);
+}
+
+.seg-7 {
+    clip-path: polygon(23% 90%, 77% 90%, 97% 100%, 3% 100%);
+}
+
+@keyframes anim-division {
+    0%{
+        opacity: 0.1;
+    }
+
+    100%{
+        opacity: 1;
+    }
+    
+}
+
+.division {
+    animation: anim-division 1s ease-in-out infinite alternate-reverse;
+    color: white;
+    font-size: 5rem;
+    font-family: 'Courier New', Courier, monospace;
+    user-select: none;
+}
+#hour {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+}
+#minute {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+}
