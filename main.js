@@ -1,10 +1,16 @@
 const clock = document.getElementById("clock");
 const hour = Array.from(
-  clock.firstElementChild.getElementsByClassName("digit")
+  document.getElementById("hour").getElementsByClassName("digit")
 );
 const minute = Array.from(
-  clock.lastElementChild.getElementsByClassName("digit")
+  document.getElementById("minute").getElementsByClassName("digit")
 );
+
+const second = Array.from(
+  document.getElementById("second").getElementsByClassName("digit")
+);
+
+console.log(second);
 
 const digit = {
   0: ["active", "active", "active", "", "active", "active", "active"],
@@ -19,70 +25,42 @@ const digit = {
   9: ["active", "active", "active", "active", "", "active", "active"],
 };
 
-function updateClock() {
-  const timeHour = new Date().getHours().toString();
-  const timeMinute = new Date().getMinutes().toString().padStart(2, "0") ;
-  const timeSecond = new Date().getSeconds().toString().padStart(2, "0");
-
-  if (timeHour.length > 1) {
-    Array.from(hour[0].getElementsByClassName("segment")).map(
-      (segment, index) => {
-        segment.classList.remove("active");
-        const config = digit[timeHour[0]][index];
-        if (config) {
-          segment.classList.add(config);
-        }
-      }
-    );
-
-    Array.from(hour[1].getElementsByClassName("segment")).map(
-      (segment, index) => {
-        segment.classList.remove("active");
-        const config = digit[timeHour[1]][index];
-        if (config) {
-          segment.classList.add(config);
-        }
-      }
-    );
-  } else {
-    Array.from(hour[0].getElementsByClassName("segment")).map(
-      (segment, index) => {
-        segment.classList.remove("active");
-      }
-    );
-
-    Array.from(hour[1].getElementsByClassName("segment")).map(
-      (segment, index) => {
-        segment.classList.remove("active");
-        const config = digit[timeHour][index];
-        if (config) {
-          segment.classList.add(config);
-        }
-      }
-    );
-  }
-
-  Array.from(minute[0].getElementsByClassName("segment")).map(
+function updateDigit(digitElement, number) {
+  Array.from(digitElement.getElementsByClassName("segment")).map(
     (segment, index) => {
       segment.classList.remove("active");
-      const config = digit[timeMinute[0]][index];
-      if (config) {
-        segment.classList.add(config);
-      }
-    }
-  );
-
-  console.log(timeMinute);
-
-  Array.from(minute[1].getElementsByClassName("segment")).map(
-    (segment, index) => {
-      segment.classList.remove("active");
-      const config = digit[timeMinute[1]][index];
-      if (config) {
-        segment.classList.add(config);
+      const segmentVisibility = digit[number][index];
+      if (segmentVisibility) {
+        segment.classList.add(segmentVisibility);
       }
     }
   );
 }
 
-setInterval(updateClock, 100)
+function updateClock() {
+  const timeHour = new Date().getHours().toString();
+  const timeMinute = new Date().getMinutes().toString().padStart(2, "0");
+  const timeSecond = new Date().getSeconds().toString().padStart(2, "0");
+
+  //updating hours
+  if (timeHour.length > 1) {
+    updateDigit(hour[0], timeHour[0]);
+    updateDigit(hour[1], timeHour[1]);
+  } else {
+    Array.from(hour[0].getElementsByClassName("segment")).map((segment) => {
+      segment.classList.remove("active");
+    });
+
+    updateDigit(hour[1], timeHour[1]);
+  }
+
+  //updating minutes
+  updateDigit(minute[0], timeMinute[0]);
+  updateDigit(minute[1], timeMinute[1]);
+
+  //updating seconds
+  updateDigit(second[0], timeSecond[0]);
+  updateDigit(second[1], timeSecond[1]);
+}
+
+setInterval(updateClock, 1000);
