@@ -34,6 +34,7 @@ body {
     border-radius: 16px;
     align-items: center;
     justify-content: space-between;
+    container-type: inline-size;
     
 }
 
@@ -102,7 +103,7 @@ body {
 .division {
     animation: anim-division 1s ease-in-out infinite alternate-reverse;
     color: white;
-    font-size: 5rem;
+    font-size: 15cqw;
     font-family: 'Courier New', Courier, monospace;
     user-select: none;
 }
